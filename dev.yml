@@ -1,0 +1,8 @@
+name: messenger-analysis
+
+type: python
+
+up:
+  - python: 3.9.0
+  - pip:
+    - requirements.txt
