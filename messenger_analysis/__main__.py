@@ -4,24 +4,17 @@ your messenging habits.
 '''
 
 
-import json
-import os
 from .cli.arguments import parse_arguments
-
-
-def import_data(datasource=None):
-    '''Import messenger data'''
-    if datasource is None:
-        datasource = os.path.join('.', 'data')
-    with open(datasource, 'r') as data:
-        return json.load(data.read())
-    return None
+from .cli.config import CONFIG
+from .chat.parse import parse_chats
+from .chat.filter import filter_chats
 
 
 def main(args=None):
     '''Main entry point'''
-    args = parse_arguments(args)
-    data = import_data(args)
+    parse_arguments(args)
+    chats = parse_chats(CONFIG.datasource)
+    chats = filter_chats(chats)
 
 
 if __name__ == '__main__':
