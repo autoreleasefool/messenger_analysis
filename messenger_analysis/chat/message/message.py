@@ -22,25 +22,34 @@ class Message:
     timestamp: int
     content: str
     message_type: MessageType
-    call_duration: Optional[int] = None # pylint: disable=unsubscriptable-object
+    call_duration: Optional[int] # pylint: disable=unsubscriptable-object
 
     has_media: bool
-    photos: List[Photo] = []
-    videos: List[Video] = []
-    gifs: List[Gif] = []
+    photos: List[Photo]
+    videos: List[Video]
+    gifs: List[Gif]
 
-    files: List[File] = []
-    shares: List[SharedItem] = []
-    reactions: List[Reaction] = []
-    sticker: Optional[Sticker] = None # pylint: disable=unsubscriptable-object
+    files: List[File]
+    shares: List[SharedItem]
+    reactions: List[Reaction]
+    sticker: Optional[Sticker] # pylint: disable=unsubscriptable-object
 
-    users: Set[str] = []
+    users: Set[str]
 
     def __init__(self, message_json):
         # Common properties
         self.sender = message_json['sender_name']
         self.timestamp = message_json['timestamp_ms']
         self.message_type = MessageType[message_json['type']]
+        self.call_duration = None
+        self.photos = []
+        self.videos = []
+        self.gifs = []
+        self.files = []
+        self.shares = []
+        self.reactions = []
+        self.sticker = None
+        self.users = []
 
         if 'content' in message_json:
             self.content = message_json['content']

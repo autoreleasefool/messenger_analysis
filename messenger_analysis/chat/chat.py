@@ -15,20 +15,25 @@ class Chat:
     '''A list of messages'''
     _datasource: str
     name: str
-    messages: List[Message] = []
-    participants: Set[str] = set()
-    is_archived: bool = False
-    is_group: bool = False
+    messages: List[Message]
+    participants: Set[str]
+    is_archived: bool
+    is_group: bool
 
     def __init__(self, datasource: str):
         self._datasource = datasource
         self.is_archived = 'archived_threads' in datasource
+        self.messages = []
+        self.participants = set()
+        self.is_archived = False
+        self.is_group = False
         message_files = [x for x in os.listdir(self._datasource) if re.match(r'message_\d+\.json$', x)]
 
         determined_properties = False
 
         for message_file in message_files:
-            with open(os.path.join(datasource, message_file), 'r') as data:
+            filename = os.path.join(datasource, message_file)
+            with open(filename, 'r') as data:
                 chat_json = json.load(data)
                 self.participants.update([x['name'] for x in chat_json['participants']])
                 self.messages.extend([Message(x) for x in chat_json['messages']])
@@ -61,3 +66,8 @@ class Chat:
     def get_shares(self) -> List[SharedItem]:
         '''List of links shared in the chat'''
         return map(lambda x: x.shares, self.messages)
+
+    def __repr__(self):
+        return ' '.join([
+            f'<Chat name:{self.name} messages_count:{len(self.messages)} participants:{len(self.participants)}>',
+        ])

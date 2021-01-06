@@ -1,7 +1,6 @@
 '''Search functions'''
 
 
-import re
 import os
 
 

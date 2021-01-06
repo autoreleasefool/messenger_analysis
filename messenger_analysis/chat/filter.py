@@ -14,7 +14,7 @@ def filter_chats(chats: List[Chat]) -> List[Chat]:
         chats = _filter_groups(chats)
     if CONFIG.exclude_archived:
         chats = _filter_archived(chats)
-    return chats
+    return list(chats)
 
 
 def _filter_by_participant(chats: List[Chat], names: Set[str]) -> List[Chat]:
@@ -24,9 +24,9 @@ def _filter_by_participant(chats: List[Chat], names: Set[str]) -> List[Chat]:
 
 def _filter_groups(chats: List[Chat]) -> List[Chat]:
     '''Filters out chats that are groups'''
-    return filter(lambda x: x.is_group, chats)
+    return filter(lambda x: not x.is_group, chats)
 
 
 def _filter_archived(chats: List[Chat]) -> List[Chat]:
     '''Filters out chats that are archived'''
-    return filter(lambda x: x.is_archived, chats)
+    return filter(lambda x: not x.is_archived, chats)
