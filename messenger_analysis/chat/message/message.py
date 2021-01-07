@@ -20,7 +20,7 @@ class Message:
     '''A single message and its contents'''
     sender: str
     timestamp: int
-    content: str
+    content: Optional[str] # pylint: disable=unsubscriptable-object
     message_type: MessageType
     call_duration: Optional[int] # pylint: disable=unsubscriptable-object
 
@@ -42,6 +42,7 @@ class Message:
         self.timestamp = message_json['timestamp_ms']
         self.message_type = MessageType[message_json['type']]
         self.call_duration = None
+        self.content = None
         self.photos = []
         self.videos = []
         self.gifs = []
