@@ -1,6 +1,7 @@
 '''App configuration'''
 
 
+import os
 from typing import Any, Set
 
 
@@ -42,5 +43,9 @@ class _Config:
             f'exclude_groups:{self.exclude_groups} exclude_archived:{self.exclude_archived}',
             f'validate:{self.validate}>'
         ))
+
+    def get_output_filename(self, name: str) -> str:
+        return os.path.join(self.output, name)
+
 
 CONFIG = _Config()

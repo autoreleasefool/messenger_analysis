@@ -1,9 +1,11 @@
 '''Analyze counts of words in chats'''
 
 
+import matplotlib.pyplot as plt
 from typing import Dict, List, Tuple
 from sklearn.feature_extraction.text import CountVectorizer
 from messenger_analysis.chat.chat import Chat
+from messenger_analysis.cli.config import CONFIG
 from messenger_analysis.util.lists import flatten
 from messenger_analysis.util.stopwords import get_stop_words
 from messenger_analysis.util.tokenize import strip_punctuation
@@ -28,4 +30,26 @@ def top_n_words(chats: List[Chat], count: int) -> List[Tuple[str, int]]:
     wordcounts = count_words(chats)
     word_freq = [(word, wordcounts[word]) for word in wordcounts]
     word_freq = sorted(word_freq, key=lambda x: x[1], reverse=True)
-    return word_freq[:count]
+    return word_freq[:min(count, len(word_freq))]
+
+
+def plot_top_n_words(chats: List[Chat]):
+    top_words = top_n_words(chats, CONFIG.plotTopWords)
+    _produce_figure(top_words)
+
+
+def _produce_figure(frequencies: List[Tuple[str, int]]):
+    words = [x[0] for x in reversed(frequencies)]
+    counts = [x[1] for x in reversed(frequencies)]
+
+    plt.clf()
+    plt.title(f'Usage of top {len(frequencies)} words')
+    plt.figure(figsize=(10, len(frequencies) // 12))
+
+    plt.barh(words, counts)
+    plt.ylabel('Words')
+    plt.xlabel('Total usages')
+    plt.autoscale(enable=True)
+
+    plt.tight_layout()
+    plt.savefig(CONFIG.get_output_filename(f'top_{len(frequencies)}_words.png'))
