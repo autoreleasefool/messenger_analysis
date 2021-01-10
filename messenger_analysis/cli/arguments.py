@@ -26,6 +26,16 @@ def parse_arguments(args: List[Any] = None):
                         help='additional custom stopwords to ignore overrused words.' +
                              'each word should be on a separate line')
 
+    # Actions
+    parser.add_argument('--plotTimestamps',
+                        type=int,
+                        choices=[5, 15, 30, 60],
+                        help='plot message timestamp frequencies, in intervals of 5, 15, 30, or 60 minutes')
+    parser.add_argument('--plotTopWords',
+                        type=int,
+                        choices=range(1, 1000),
+                        help='show the top N words, up to 1,000')
+
     # Output
 
     # Filtering chats

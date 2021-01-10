@@ -9,6 +9,9 @@ class _Config:
     datasource: str
     stopwords: str
 
+    plotTimestamps: int
+    plotTopWords: int
+
     include_names: Set[str]
     exclude_groups: bool
     exclude_archived: bool
@@ -21,6 +24,8 @@ class _Config:
         '''Update config with ArgumentParser'''
         self.datasource = args.datasource
         self.stopwords = args.stopwords
+        self.plotTimestamps = args.plotTimestamps
+        self.plotTopWords = args.plotTopWords
         self.include_names = set(args.includeNames[0].split(',')) if args.includeNames else set()
         self.exclude_groups = args.excludeGroups or False
         self.exclude_archived = args.excludeArchived or False
