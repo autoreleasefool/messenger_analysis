@@ -44,12 +44,14 @@ def _produce_figure(frequencies: List[Tuple[str, int]]):
 
     plt.clf()
     plt.title(f'Usage of top {len(frequencies)} words')
-    plt.figure(figsize=(10, len(frequencies) // 12))
 
-    plt.barh(words, counts)
+    fig, ax = plt.subplots(figsize=(10, len(frequencies) // 5))
+    ax.barh(words, counts)
     plt.ylabel('Words')
     plt.xlabel('Total usages')
-    plt.autoscale(enable=True)
+
+    for i, v in enumerate(counts):
+        ax.text(v + 3, i - 0.25, str(v))
 
     plt.tight_layout()
     plt.savefig(CONFIG.get_output_filename(f'top_{len(frequencies)}_words.png'))

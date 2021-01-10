@@ -13,7 +13,7 @@ STEMMER = PorterStemmer()
 
 def strip_punctuation(messages: List[str]) -> List[str]:
     '''Strip all punctuation from messages'''
-    return [''.join([ch for ch in x if ch not in string.punctuation]) for x in messages]
+    return [''.join([ch for ch in x if ch not in string.punctuation and ch != "\u00e2"]) for x in messages]
 
 
 def stem_messages(messages: List[str]) -> List[List[str]]:
