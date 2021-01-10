@@ -33,10 +33,13 @@ def parse_arguments(args: List[Any] = None):
                         help='plot message timestamp frequencies, in intervals of 5, 15, 30, or 60 minutes')
     parser.add_argument('--plotTopWords',
                         type=int,
-                        choices=range(1, 1000),
-                        help='show the top N words, up to 1,000')
+                        help='show the top N words')
 
     # Output
+    parser.add_argument('--output',
+                        type=str,
+                        default=os.path.join('.', 'output'),
+                        help='output directory. defaults to ./output')
 
     # Filtering chats
     parser.add_argument('--includeNames',

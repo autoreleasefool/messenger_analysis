@@ -7,6 +7,7 @@ from typing import Any, Set
 class _Config:
     '''App configuration'''
     datasource: str
+    output: str
     stopwords: str
 
     plotTimestamps: int
@@ -23,6 +24,7 @@ class _Config:
     def update(self, args: Any):
         '''Update config with ArgumentParser'''
         self.datasource = args.datasource
+        self.output = args.output
         self.stopwords = args.stopwords
         self.plotTimestamps = args.plotTimestamps
         self.plotTopWords = args.plotTopWords
@@ -35,7 +37,7 @@ class _Config:
 
     def __repr__(self):
         return ' '.join((
-            f'<Config datasource:{self.datasource} stopwords:{self.stopwords}',
+            f'<Config datasource:{self.datasource} stopwords:{self.stopwords} output:{self.output}',
             f'include_names:{self.include_names}',
             f'exclude_groups:{self.exclude_groups} exclude_archived:{self.exclude_archived}',
             f'validate:{self.validate}>'
