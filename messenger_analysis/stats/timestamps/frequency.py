@@ -49,5 +49,5 @@ def _produce_figure(timestamps: List[float]):
     # Radius labels
     plt.setp(ax.get_yticklabels(), visible=False)
 
-    plt.tightfit()
+    plt.tight_layout()
     plt.savefig(CONFIG.get_output_filename(f'message_frequency_{interval_size}_minute_intervals.png'))

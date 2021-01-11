@@ -15,7 +15,8 @@ def count_words(chats: List[Chat]) -> Dict[str, int]:
     '''Returns number of occurrences of each word in the chat'''
     # tokenized = tokenize_chats(chats)
     messages = flatten([x.messages for x in chats])
-    messages = [x.content for x in messages if x.content]
+    messages = [x.content for x in messages \
+        if x.content and (not CONFIG.include_names or x.sender in CONFIG.include_names)]
     messages = strip_punctuation(messages)
 
     vec = CountVectorizer(stop_words=get_stop_words()).fit(messages)
