@@ -8,7 +8,7 @@ from messenger_analysis.chat.chat import Chat
 from messenger_analysis.cli.config import CONFIG
 from messenger_analysis.util.lists import flatten
 from messenger_analysis.util.stopwords import get_stop_words
-from messenger_analysis.util.tokenize import strip_punctuation
+from messenger_analysis.util.tokenize import strip_punctuation, should_include_word
 
 
 def count_words(chats: List[Chat]) -> Dict[str, int]:
@@ -21,7 +21,7 @@ def count_words(chats: List[Chat]) -> Dict[str, int]:
     vec = CountVectorizer(stop_words=get_stop_words()).fit(messages)
     bag_of_words = vec.transform(messages)
     sum_words = bag_of_words.sum(axis=0)
-    words_freq = {word: sum_words[0, idx] for word, idx in vec.vocabulary_.items()}
+    words_freq = {word: sum_words[0, idx] for word, idx in vec.vocabulary_.items() if should_include_word(word)}
     return words_freq
 
 

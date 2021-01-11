@@ -59,6 +59,12 @@ def parse_arguments(args: List[Any] = None):
     parser.add_argument('--excludeWords',
                         nargs=1,
                         help='comma-separated list of regexes for words to exclude')
+    parser.add_argument('--matchWords',
+                        nargs=1,
+                        help='basic regex to match against words to include')
+    parser.add_argument('--matchExcludeWords',
+                        nargs=1,
+                        help='basic regex to match against words to exclude')
 
     # Debug
     parser.add_argument('--validate',
