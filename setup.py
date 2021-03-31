@@ -8,7 +8,7 @@ setup(
     description='Analyze your Facebook Messenger conversations, for interesting facts',
     version=version,
     author='Joseph Roque',
-    url='https://github.com/josephroquedev/messenger-analysis',
+    url='https://github.com/autoreleasefool/messenger-analysis',
     license='MIT',
     packages=['messenger_analysis']
     entry_points={
